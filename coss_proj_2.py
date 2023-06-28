@@ -20,6 +20,8 @@ import streamlit as st
 from streamlit_folium import st_folium
 import koreanize_matplotlib
 
+st.title("국내 숙박업 데이터 분석하기")
+
 """
 ### 기획의도
 - 최근 휴가철을 맞아 여행 계획을 알아보던 중, 국내 숙박업소 위치 비율/코로나19가 숙박업계에 미친 영향 등 다양한 방법으로 숙박업 데이터를 분석하고 싶다는 생각이 들어 해당 프로젝트를 선정하게 되었다.
@@ -53,7 +55,6 @@ df_new = df[['번호', '개방서비스명', '인허가일자', '폐업일자', 
 df_open = df_new.loc[df['영업상태명']!='폐업']
 df_close = df_new.loc[df['영업상태명']=='폐업']
 
-st.title("국내 숙박업 데이터 분석하기")
 """## 가설 설정 및 분석
 
 ### 가설 1. 영업중인 숙박업소는 부산/제주도 등 여행지에 가장 많이 분포할 것이다.
