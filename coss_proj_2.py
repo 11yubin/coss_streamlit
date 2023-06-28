@@ -118,20 +118,23 @@ closed_year_df.rename(columns={'count':'폐업수', '폐업일자':'연도'}, in
 closed_year_df['연도'] = closed_year_df['연도'].astype(int)
 closed_year_df.head()
 
-px.line(closed_year_df, x='연도', y='폐업수').update_layout(title='연도별 폐업수')
+"""- 전체 연도별 폐업수를 선 그래프로 나타내기"""
+st.plotly_chart(px.line(closed_year_df, x='연도', y='폐업수').update_layout(title='연도별 폐업수'))
 
-px.scatter(closed_year_df, x='연도', y='폐업수')
+"""- 전체 연도별 폐업수를 산점도로 나타내기"""
+st.plotly_chart(px.scatter(closed_year_df, x='연도', y='폐업수'))
 
 after_covid = closed_year_df.loc[closed_year_df['연도']>=2020]
 
 before_covid = closed_year_df.loc[closed_year_df['연도']<2020]
 
-
+"""- 코로나 이전 전체시기(1986~2019)와 코로나시기(2020~2022) 연도별 폐업률 비교"""
 df_covid = pd.DataFrame()
 df_covid['코로나'] = ['이전', '이후']
 df_covid['연평균 폐업수'] = [before_covid['폐업수'].sum()/len(before_covid), after_covid['폐업수'].sum()/len(after_covid)]
-px.histogram(df_covid, x='코로나', y='연평균 폐업수', color='코로나')
+st.plotly_chart(px.histogram(df_covid, x='코로나', y='연평균 폐업수', color='코로나'))
 
+"""- 코로나 이전 3년(2017~2019)와 코로나시기(2020~2022) 연도별 폐업률 비교"""
 before_covid = closed_year_df.loc[closed_year_df['연도']<2020][-3:]
 
 df_covid = pd.DataFrame()
@@ -139,13 +142,14 @@ df_covid['코로나'] = ['이전', '이후']
 df_covid['연평균 폐업수'] = [before_covid['폐업수'].sum()/len(before_covid), after_covid['폐업수'].sum()/len(after_covid)]
 st.plotly_chart(px.histogram(df_covid, x='코로나', y='연평균 폐업수', color='코로나'))
 
+"""- 코로나 이전 10년(2010~2019)와 코로나시기(2020~2022) 연도별 폐업률 비교"""
 before_covid = closed_year_df.loc[closed_year_df['연도']<2020][-10:]
 
 
 df_covid = pd.DataFrame()
 df_covid['코로나'] = ['이전', '이후']
 df_covid['연평균 폐업수'] = [before_covid['폐업수'].sum()/len(before_covid), after_covid['폐업수'].sum()/len(after_covid)]
-px.histogram(df_covid, x='코로나', y='연평균 폐업수', color='코로나')
+st.plotly_chart(px.histogram(df_covid, x='코로나', y='연평균 폐업수', color='코로나'))
 
 """- 결론: 전체적인 그래프를 볼 때는 특이점이 크게 나타나지 않았지만, 연평균 폐업률을 보았을 때는 코로나 이전에 비해 코로나 시기를 겪은 2020년부터 2022년까지 약 2배 높은 폐업률을 보였다. 이를 통해 코로나가 숙박업계의 폐업에 미친 영향이 있을 것이라고 판단했으나, 코로나 이전 3년/10년 간의 데이터를 분석해보니 현재 숙박업계의 폐업률이 증가하는 추세였다는 것을 알 수 있었다. 따라서 코로나19가 숙박업계 폐업에 큰 영향을 미쳤다는 유의미한 결과를 발견할 수는 없었다. 그리고, 2003년도에 유독 많은 숫자의 숙박업소가 폐업했는데, 당시의 사회적 상황에 따른 이유가 있을 것이라고 생각된다."""
 
