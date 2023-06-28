@@ -20,7 +20,7 @@ import streamlit as st
 from streamlit_folium import st_folium
 import koreanize_matplotlib
 
-st.title("국내 숙박업 데이터 분석하기")
+st.title("국내 숙박업 데이터 분석하기 🏡")
 
 """
 ### 기획의도
