@@ -51,12 +51,12 @@ converted = transform(proj_1, proj_2, df['좌표정보(x)'].values, df['좌표�
 df['좌표정보(x)'], df['좌표정보(y)'] = converted[0], converted[1]
 df.rename(columns={'좌표정보(x)':'경도', '좌표정보(y)':'위도'}, inplace=True)
 
-st.code('proj_1 = Proj(init='epsg:2097')
+st.code("""proj_1 = Proj(init='epsg:2097')
 proj_2 = Proj(init='epsg:4326')
 
 converted = transform(proj_1, proj_2, df['좌표정보(x)'].values, df['좌표정보(y)'].values)
 df['좌표정보(x)'], df['좌표정보(y)'] = converted[0], converted[1]
-df.rename(columns={'좌표정보(x)':'경도', '좌표정보(y)':'위도'}, inplace=True)')
+df.rename(columns={'좌표정보(x)':'경도', '좌표정보(y)':'위도'}, inplace=True)""")
 
 df_new = df[['번호', '개방서비스명', '인허가일자', '폐업일자', '소재지면적', '소재지전체주소',
                  '도로명전체주소', '사업장명', '최종수정시점', '데이터갱신일자', '업태구분명',
