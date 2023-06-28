@@ -30,16 +30,9 @@ from streamlit_folium import st_folium
 
 plt.rc('font', family='NanumGothic')
 
-"""## 데이터 전처리"""
 
 df = pd.read_csv('fulldata_03_11_03_P_숙박업.csv', encoding='CP949')
 df.head()
-
-df.info()
-
-"""- 좌표정보 기준이 위/경도가 아닌 중부원점 기준이기 때문에, folium 라이브러리를 사용하기 위해 위/경도 기준으로 변환해줌"""
-
-df['좌표정보(x)']
 
 from pyproj import Proj, transform
 
@@ -51,28 +44,13 @@ df['좌표정보(x)'], df['좌표정보(y)'] = converted[0], converted[1]
 df.rename(columns={'좌표정보(x)':'경도', '좌표정보(y)':'위도'}, inplace=True)
 df[['경도', '위도']]
 
-"""- 결측치 확인"""
-
-df.isnull().sum()
-
-"""- 필요한 열만 추출"""
-
 df_new = df[['번호', '개방서비스명', '인허가일자', '폐업일자', '소재지면적', '소재지전체주소',
                  '도로명전체주소', '사업장명', '최종수정시점', '데이터갱신일자', '업태구분명',
                  '위도', '경도', '건물지상층수', '건물지하층수', '사용시작지상층',
                  '사용끝지상층', '사용시작지하층', '사용끝지하층', '한실수', '양실수']]
-df_new.head()
-
-df_new.info()
-
-"""- 영업중/폐업 숙소 구분"""
 
 df_open = df_new.loc[df['영업상태명']!='폐업']
 df_close = df_new.loc[df['영업상태명']=='폐업']
-
-df_open.head()
-
-df_close.head()
 
 """## 가설 설정 및 분석
 
@@ -80,9 +58,6 @@ df_close.head()
 """
 
 location = df_open['소재지전체주소'].str.split().str[0]
-location
-
-location
 
 sns.countplot(x=location)
 plt.gcf().set_size_inches(15, 8)
@@ -94,13 +69,11 @@ area = pd.read_csv('지역별_면적_20230628230940.c
 area = area[['남북한별 ', '2021']][16:]
 area.rename(columns={'남북한별 ':'위치', '2021':'면적'}, inplace=True)
 area['면적'] = area['면적'].astype(int)
-area
 
 loc_cnt = location.value_counts().to_frame()
 loc_cnt['위치'] = loc_cnt.index
 loc_cnt_area = pd.merge(area, loc_cnt)
 loc_cnt_area.rename(columns={'count':'개수'}, inplace=True)
-loc_cnt_area
 
 loc_cnt_area['면적대비개수'] = loc_cnt_area['개수']/loc_cnt_area['면적']
 loc_cnt_area.sort_values(by='면적대비개수', ascending=False, inplace=True)
@@ -121,7 +94,8 @@ m = folium.Map(
 heatmap = HeatMap(data=zip(df_open_loc['위도'], df_open_loc['경도']), min_opacity=0.2, max_val=7,
                 radius=10, blur=1.5, max_zoom=5,color='red')
 m.add_child(heatmap)
-m
+
+st_data = st_folium(m, width=725)
 
 """- 결론: 절대적인 값은 경기도에 가장 많으나, 면적 대비 개수의 비율을 구해보면 서울이 압도적으로 많다. 면적이 작은 광역시의 경우, 면적 대비 개수를 구했을 때 상대적으로 큰 값이 나오기 때문에 높은 순위에 위치해있다.
 
@@ -136,6 +110,8 @@ closed_year.tail()
 
 closed_year_df = closed_year.to_frame().reset_index()
 closed_year_df.rename(columns={'폐업일자':'폐업수', 'index':'연도'}, inplace=True)
+closed_year_df
+
 closed_year_df['연도'] = closed_year_df['연도'].astype(int)
 closed_year_df.head()
 
@@ -172,5 +148,4 @@ px.histogram(df_covid, x='코로나', y='연평균 폐업수', color='코로나'
 
 """- 결론: 전체적인 그래프를 볼 때는 특이점이 크게 나타나지 않았지만, 연평균 폐업률을 보았을 때는 코로나 이전에 비해 코로나 시기를 겪은 2020년부터 2022년까지 약 2배 높은 폐업률을 보였다. 이를 통해 코로나가 숙박업계의 폐업에 미친 영향이 있을 것이라고 판단했으나, 코로나 이전 3년/10년 간의 데이터를 분석해보니 현재 숙박업계의 폐업률이 증가하는 추세였다는 것을 알 수 있었다. 따라서 코로나19가 숙박업계 폐업에 큰 영향을 미쳤다는 유의미한 결과를 발견할 수는 없었다. 그리고, 2003년도에 유독 많은 숫자의 숙박업소가 폐업했는데, 당시의 사회적 상황에 따른 이유가 있을 것이라고 생각된다."""
 
-st_data = st_folium(m, width=725)
 
