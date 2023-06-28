@@ -109,7 +109,7 @@ closed_year = closed_year.sort_index()[10:-1]
 closed_year.tail()
 
 closed_year_df = closed_year.to_frame().reset_index()
-closed_year_df.rename(columns={'폐업일자':'폐업수', 'count':'연도'}, inplace=True)
+closed_year_df.rename(columns={'폐업일자':'폐업수', 'index':'연도'}, inplace=True)
 closed_year_df['연도'] = closed_year_df['연도'].astype(int)
 closed_year_df.head()
 
