@@ -99,7 +99,7 @@ area
 loc_cnt = location.value_counts().to_frame()
 loc_cnt['위치'] = loc_cnt.index
 loc_cnt_area = pd.merge(area, loc_cnt)
-loc_cnt_area.rename(columns={'소재지전체주소':'개수'}, inplace=True)
+loc_cnt_area.rename(columns={'count':'개수'}, inplace=True)
 loc_cnt_area
 
 loc_cnt_area['면적대비개수'] = loc_cnt_area['개수']/loc_cnt_area['면적']
