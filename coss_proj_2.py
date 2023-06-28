@@ -59,9 +59,11 @@ df_close = df_new.loc[df['영업상태명']=='폐업']
 
 location = df_open['소재지전체주소'].str.split().str[0]
 
+plot1 = plt.figure(figsize=(15,8))
 sns.countplot(x=location)
-plt.gcf().set_size_inches(15, 8)
 plt.show()
+
+st.pyplot(plot1)
 
 """- 지역별 면적 대비 개수로 분석"""
 
