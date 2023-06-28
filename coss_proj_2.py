@@ -51,6 +51,7 @@ df_new = df[['번호', '개방서비스명', '인허가일자', '폐업일자', 
 df_open = df_new.loc[df['영업상태명']!='폐업']
 df_close = df_new.loc[df['영업상태명']=='폐업']
 
+st.title("국내 숙박업 데이터 분석하기")
 """## 가설 설정 및 분석
 
 ### 가설 1. 영업중인 숙박업소는 부산/제주도 등 여행지에 가장 많이 분포할 것이다.
@@ -126,15 +127,15 @@ st.plotly_chart(px.scatter(closed_year_df, x='연도', y='폐업수'))
 
 after_covid = closed_year_df.loc[closed_year_df['연도']>=2020]
 
+"""- 코로나 이전 전체시기(1986 ~ 2019)와 코로나시기(2020 ~ 2022) 연도별 폐업률 비교"""
 before_covid = closed_year_df.loc[closed_year_df['연도']<2020]
 
-"""- 코로나 이전 전체시기(1986-2019)와 코로나시기(2020-2022) 연도별 폐업률 비교"""
 df_covid = pd.DataFrame()
 df_covid['코로나'] = ['이전', '이후']
 df_covid['연평균 폐업수'] = [before_covid['폐업수'].sum()/len(before_covid), after_covid['폐업수'].sum()/len(after_covid)]
 st.plotly_chart(px.histogram(df_covid, x='코로나', y='연평균 폐업수', color='코로나'))
 
-"""- 코로나 이전 3년(2017-2019)와 코로나시기(2020-2022) 연도별 폐업률 비교"""
+"""- 코로나 이전 3년(2017 ~ 2019)와 코로나시기(2020 ~ 2022) 연도별 폐업률 비교"""
 before_covid = closed_year_df.loc[closed_year_df['연도']<2020][-3:]
 
 df_covid = pd.DataFrame()
