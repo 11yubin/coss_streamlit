@@ -25,6 +25,7 @@ import folium
 import plotly.express as px
 import streamlit as st
 from streamlit_folium import st_folium
+import koreanize_matplotlib
 
 # %config InlineBackend.figure_format = 'retina'
 
