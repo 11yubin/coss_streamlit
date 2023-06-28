@@ -6,3 +6,4 @@ plotly
 streamlit
 streamlit_folium
 pyproj
+koreanize_matplotlib
