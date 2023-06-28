@@ -32,7 +32,7 @@ plt.rc('font', family='NanumGothic')
 
 """## 데이터 전처리"""
 
-df = pd.read_csv('fulldata_03_11_03_P_숙박업.csv', encoding='CP949')
+df = pd.read_csv('/app/coss_streamlit/fulldata_03_11_03_P_숙박업.csv', encoding='CP949')
 df.head()
 
 df.info()
@@ -90,7 +90,7 @@ plt.show()
 
 """- 지역별 면적 대비 개수로 분석"""
 
-area = pd.read_csv('지역별_면적_20230628230940.csv', encoding='CP949')
+area = pd.read_csv('/app/coss_streamlit/지역별_면적_20230628230940.csv', encoding='CP949')
 area = area[['남북한별 ', '2021']][16:]
 area.rename(columns={'남북한별 ':'위치', '2021':'면적'}, inplace=True)
 area['면적'] = area['면적'].astype(int)
