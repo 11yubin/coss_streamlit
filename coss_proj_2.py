@@ -128,13 +128,13 @@ after_covid = closed_year_df.loc[closed_year_df['연도']>=2020]
 
 before_covid = closed_year_df.loc[closed_year_df['연도']<2020]
 
-"""- 코로나 이전 전체시기(1986~2019)와 코로나시기(2020~2022) 연도별 폐업률 비교"""
+"""- 코로나 이전 전체시기(1986-2019)와 코로나시기(2020-2022) 연도별 폐업률 비교"""
 df_covid = pd.DataFrame()
 df_covid['코로나'] = ['이전', '이후']
 df_covid['연평균 폐업수'] = [before_covid['폐업수'].sum()/len(before_covid), after_covid['폐업수'].sum()/len(after_covid)]
 st.plotly_chart(px.histogram(df_covid, x='코로나', y='연평균 폐업수', color='코로나'))
 
-"""- 코로나 이전 3년(2017~2019)와 코로나시기(2020~2022) 연도별 폐업률 비교"""
+"""- 코로나 이전 3년(2017-2019)와 코로나시기(2020-2022) 연도별 폐업률 비교"""
 before_covid = closed_year_df.loc[closed_year_df['연도']<2020][-3:]
 
 df_covid = pd.DataFrame()
@@ -142,7 +142,7 @@ df_covid['코로나'] = ['이전', '이후']
 df_covid['연평균 폐업수'] = [before_covid['폐업수'].sum()/len(before_covid), after_covid['폐업수'].sum()/len(after_covid)]
 st.plotly_chart(px.histogram(df_covid, x='코로나', y='연평균 폐업수', color='코로나'))
 
-"""- 코로나 이전 10년(2010~2019)와 코로나시기(2020~2022) 연도별 폐업률 비교"""
+"""- 코로나 이전 10년(2010 ~ 2019)와 코로나시기(2020 ~ 2022) 연도별 폐업률 비교"""
 before_covid = closed_year_df.loc[closed_year_df['연도']<2020][-10:]
 
 
