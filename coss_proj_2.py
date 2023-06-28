@@ -87,10 +87,18 @@ st.pyplot(plot1)
 
 """- 지역별 면적 대비 개수로 분석"""
 
+"""지역별 면적 데이터프레임(area)과 숙박업소 개수 데이터프레임(loc_cnt)을 병합시켜 새로운 프레임 생성"""
+
 area = pd.read_csv('지역별_면적_20230628230940.csv', encoding='CP949')
 area = area[['남북한별 ', '2021']][16:]
 area.rename(columns={'남북한별 ':'위치', '2021':'면적'}, inplace=True)
 area['면적'] = area['면적'].astype(int)
+
+st.code("""loc_cnt_area = pd.merge(area, loc_cnt)
+loc_cnt_area.rename(columns={'count':'개수'}, inplace=True)
+
+loc_cnt_area['면적대비개수'] = loc_cnt_area['개수']/loc_cnt_area['면적']
+loc_cnt_area.sort_values(by='면적대비개수', ascending=False, inplace=True)""")
 
 loc_cnt = location.value_counts().to_frame()
 loc_cnt['위치'] = loc_cnt.index
