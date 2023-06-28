@@ -1,7 +1,7 @@
 pandas
 seaborn
-matplotlib.pyplot
+matplotlib
 folium
-plotly.express
+plotly
 streamlit
 streamlit_folium
