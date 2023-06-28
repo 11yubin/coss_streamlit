@@ -31,7 +31,6 @@ import koreanize_matplotlib
 
 plt.rc('font', family='NanumGothic')
 
-
 df = pd.read_csv('fulldata_03_11_03_P_숙박업.csv', encoding='CP949')
 df.head()
 
@@ -43,7 +42,6 @@ proj_2 = Proj(init='epsg:4326')
 converted = transform(proj_1, proj_2, df['좌표정보(x)'].values, df['좌표정보(y)'].values)
 df['좌표정보(x)'], df['좌표정보(y)'] = converted[0], converted[1]
 df.rename(columns={'좌표정보(x)':'경도', '좌표정보(y)':'위도'}, inplace=True)
-df[['경도', '위도']]
 
 df_new = df[['번호', '개방서비스명', '인허가일자', '폐업일자', '소재지면적', '소재지전체주소',
                  '도로명전체주소', '사업장명', '최종수정시점', '데이터갱신일자', '업태구분명',
@@ -57,6 +55,8 @@ df_close = df_new.loc[df['영업상태명']=='폐업']
 
 ### 가설 1. 영업중인 숙박업소는 부산/제주도 등 여행지에 가장 많이 분포할 것이다.
 """
+
+"""- 절대적인 개수로 분석"""
 
 location = df_open['소재지전체주소'].str.split().str[0]
 
@@ -81,7 +81,9 @@ loc_cnt_area.rename(columns={'count':'개수'}, inplace=True)
 loc_cnt_area['면적대비개수'] = loc_cnt_area['개수']/loc_cnt_area['면적']
 loc_cnt_area.sort_values(by='면적대비개수', ascending=False, inplace=True)
 
+plot2 = plt.figure(figsize=(15,8))
 sns.barplot(data=loc_cnt_area, x='위치', y='면적대비개수')
+st.pyplot(plot2)
 
 """- 지도로 확인"""
 
@@ -115,6 +117,7 @@ closed_year_df = closed_year.to_frame().reset_index()
 closed_year_df.rename(columns={'폐업일자':'폐업수', 'count':'연도'}, inplace=True)
 closed_year_df['연도'] = closed_year_df['연도'].astype(int)
 closed_year_df.head()
+st.write(type(closed_year_df['연도'][0]))
 
 px.line(closed_year_df, x='연도', y='폐업수').update_layout(title='연도별 폐업수')
 
