@@ -8,13 +8,6 @@ Original file is located at
 
 # 주제: 다양한 방법으로 숙박업소 데이터 분석하기
 
-### 기획의도
-- 최근 휴가철을 맞아 여행 계획을 알아보던 중, 국내 숙박업소 위치 비율/코로나19가 숙박업계에 미친 영향 등 다양한 방법으로 숙박업 데이터를 분석하고 싶다는 생각이 들어 해당 프로젝트를 선정하게 되었다.
-
-### 이용 데이터
-- 공공데이터 포털에 있는 '행정안전부_숙박업' 데이터 (csv)
-- KOSIS 국가 통계 포털에 있는 '지역별 면적' 데이터 (csv)
-
 ## 모듈 임포트
 """
 
@@ -26,6 +19,15 @@ import plotly.express as px
 import streamlit as st
 from streamlit_folium import st_folium
 import koreanize_matplotlib
+
+"""
+### 기획의도
+- 최근 휴가철을 맞아 여행 계획을 알아보던 중, 국내 숙박업소 위치 비율/코로나19가 숙박업계에 미친 영향 등 다양한 방법으로 숙박업 데이터를 분석하고 싶다는 생각이 들어 해당 프로젝트를 선정하게 되었다.
+
+### 이용 데이터
+- 공공데이터 포털에 있는 '행정안전부_숙박업' 데이터 (csv)
+- KOSIS 국가 통계 포털에 있는 '지역별 면적' 데이터 (csv)
+"""
 
 # %config InlineBackend.figure_format = 'retina'
 
