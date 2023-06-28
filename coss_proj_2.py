@@ -117,7 +117,6 @@ closed_year_df = closed_year.to_frame().reset_index()
 closed_year_df.rename(columns={'폐업일자':'폐업수', 'count':'연도'}, inplace=True)
 closed_year_df['연도'] = closed_year_df['연도'].astype(int)
 closed_year_df.head()
-st.write(type(closed_year_df['연도'][0]))
 
 px.line(closed_year_df, x='연도', y='폐업수').update_layout(title='연도별 폐업수')
 
@@ -127,7 +126,7 @@ after_covid = closed_year_df.loc[closed_year_df['연도']>=2020]
 after_covid.head()
 
 before_covid = closed_year_df.loc[closed_year_df['연도']<2020]
-before_covid.head()
+before_covid
 
 df_covid = pd.DataFrame()
 df_covid['코로나'] = ['이전', '이후']
